@@ -34,4 +34,12 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     // Custom query using @Query
     @Query("SELECT e FROM Event e WHERE e.eventStartTime BETWEEN :start AND :end")
     List<Event> findEventsByStartTimeRange(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+    
+    @Query(value = "select * from events e where e.event_id in (select event_id from ticket_booking t where t.attendee_id = :aId)", nativeQuery = true)
+    List<Event> findAllEventsByAttendeeId(@Param("aId") int attendeeId);
+    
+    Event findByEventTitle(String eventTitle);
+    
+    
+    
 }

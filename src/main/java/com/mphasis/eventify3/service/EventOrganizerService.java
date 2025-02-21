@@ -84,5 +84,17 @@ public class EventOrganizerService {
 	public double showAllRevenueByEvent(int id) {
 		return organizerRepository.showAllRevenueByEvent(id);
 	}
+	
+	
+	public Event getByEventTitle(String eventtitle) {
+		Event e = eventRepository.findByEventTitle(eventtitle);
+		return e;
+				
+	}
+	
+public int getOrganizerIdByEmail(String email) {
+		
+		return organizerRepository.findOrganizerIdByEmail(email);
+	}
 
 }

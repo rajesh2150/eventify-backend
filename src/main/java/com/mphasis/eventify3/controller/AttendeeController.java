@@ -1,7 +1,9 @@
 package com.mphasis.eventify3.controller;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -125,6 +127,16 @@ public class AttendeeController {
     	return eList;
     }
  
+    
+    @GetMapping("/{email}")
+    public Map<String,Integer> getAttendeeIdByEmail(@PathVariable String email) {
+    	int id= attendeeService.getAttendeeIdByEmail(email);
+    	HashMap<String, Integer> respose=new HashMap<>();
+    	respose.put("id", id);
+    	
+    	System.out.println(respose);
+    	return respose;
+    }
 
 	
     

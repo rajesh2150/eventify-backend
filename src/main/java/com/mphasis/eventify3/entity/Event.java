@@ -22,7 +22,7 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+//    @JsonIgnore
     private int eventId;
 
     private String eventTitle;

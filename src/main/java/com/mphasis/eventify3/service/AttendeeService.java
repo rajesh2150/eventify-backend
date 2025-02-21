@@ -98,6 +98,12 @@ public class AttendeeService {
 	    return ticketBookingRepo.save(ticketBooking);
 	}
 	
+	public int getAttendeeIdByEmail(String email) {
+		
+		return attendeeRepo.findAttendeeIdByEmail(email);
+	}
+	
+	
 	// Browse events by type, location, or date
 //    public List<Event> browseEvents(String type, String location, LocalDateTime startDate, LocalDateTime endDate) {
 //        if (type != null) {

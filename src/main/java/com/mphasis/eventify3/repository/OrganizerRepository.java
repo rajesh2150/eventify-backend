@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.mphasis.eventify3.entity.Attendee;
@@ -29,4 +30,7 @@ public interface OrganizerRepository extends JpaRepository<Organizer, Integer> {
 	
 	@Query("select a.organizerName,a.organizerEmail,a.organizerPhoneNumber,a.organizerIsSuspended,a.role from Organizer a")
 	List<Object[]> findAllOrganizer();
+	
+	@Query(value="select organizer_id from organizer where organizer_email = :email",nativeQuery = true)
+	int findOrganizerIdByEmail(@Param("email") String email);
 }  

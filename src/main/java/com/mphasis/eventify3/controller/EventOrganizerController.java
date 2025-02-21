@@ -1,6 +1,8 @@
 package com.mphasis.eventify3.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,6 +129,26 @@ public class EventOrganizerController {
 	public double showAllRevenueByEvent(@PathVariable("id") int id) {
 		return es.showAllRevenueByEvent(id);
 	}
+	
+	
+	
+	@GetMapping("/event/{eventTitle}")
+	public Event getByEventTitle(@PathVariable("eventTitle") String eventTitle) {
+		System.out.println(eventTitle     );
+		Event e= es.getByEventTitle(eventTitle);
+		return e;
+		
+	}
+	
+	@GetMapping("/{email}")
+    public Map<String,Integer> getOrganizerIdByEmail(@PathVariable String email) {
+    	int id= es.getOrganizerIdByEmail(email);
+    	HashMap<String, Integer> respose=new HashMap<>();
+    	respose.put("id", id);
+    	
+    	System.out.println(respose);
+    	return respose;
+    }
 	
 	    
 //	    @GetMapping("/showeventrevenue/{id}")

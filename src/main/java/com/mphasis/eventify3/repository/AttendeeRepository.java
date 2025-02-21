@@ -30,4 +30,7 @@ public interface AttendeeRepository extends JpaRepository<Attendee, Integer> {
 	@Query("select a.attendeeName,a.attendeeEmail,a.attendeePhoneNumber,a.attendeeIsSuspended,a.role from Attendee a")
 	List<Object[]> findAllAttendee();
 	
+	@Query(value="select attendee_id from attendee where attendee_email= :email",nativeQuery = true)
+	int findAttendeeIdByEmail(@Param("email") String email);
+	
 }
