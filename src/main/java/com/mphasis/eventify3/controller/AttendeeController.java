@@ -82,16 +82,16 @@ public class AttendeeController {
     
     
     @PostMapping("/buyticket")
-    public ResponseEntity<TicketBooking> buyTicket(@RequestBody TicketBooking ticketBooking) {
+    public ResponseEntity<?> buyTicket(@RequestBody TicketBooking ticketBooking) {
         try {
             TicketBooking bookedTicket = attendeeService.bookTicket(ticketBooking);
             if (bookedTicket != null) {
                 return new ResponseEntity<>(bookedTicket, HttpStatus.CREATED); // 201 Created
             } else {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 400 Bad Request if booking fails
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 500 Internal Server Error
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST); 
         }
     }
     
@@ -119,7 +119,14 @@ public class AttendeeController {
     }
     
     
-    
+    @GetMapping("/getallevents")
+    public List<Event> getAllEvents(){
+    	List<Event> eList = attendeeService.getAllEvents();
+    	return eList;
+    }
+ 
+
+	
     
     
     

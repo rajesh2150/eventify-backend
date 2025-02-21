@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Organizer {
     private int organizerId;
 
     private String organizerName;
+    
+    @Column(unique = true)
     private String organizerEmail;
     private String organizerPassword;
     private String organizerPhoneNumber;

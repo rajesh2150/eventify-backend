@@ -71,7 +71,7 @@ public class UserController {
 //		}
 //		 
 //		}
-	@GetMapping("/attendee/register/{email}/{pwd}")
+	@GetMapping("/attendee/login/{email}/{pwd}")
     public Map<String, String> loginAttendee(@PathVariable String email, @PathVariable String pwd) {
         String role = userService.loginAttendee(email, pwd);
         Map<String, String> response = new HashMap<>();
@@ -79,7 +79,7 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/organizer/register/{email}/{pwd}")
+    @GetMapping("/organizer/login/{email}/{pwd}")
     public Map<String, String> loginOrganizer(@PathVariable String email, @PathVariable String pwd) {
         String role = userService.loginOrganizer(email, pwd);
         Map<String, String> response = new HashMap<>();

@@ -23,7 +23,7 @@ import com.mphasis.eventify3.exception.EventOrganizerExceptionHandler;
 import com.mphasis.eventify3.service.EventOrganizerService;
 
 @RestController
-@RequestMapping("/api/organizer")
+@RequestMapping("/eventify/organizer")
 @CrossOrigin("*")
 public class EventOrganizerController {
 	
@@ -39,7 +39,7 @@ public class EventOrganizerController {
 	    public ResponseEntity<?> getAllAttendeesByEventId(@PathVariable int id) {
 	        List<Attendee> attendees = es.getAllAttendeesByEventId(id);
 	        if (attendees.isEmpty()) {
-	            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 No Content
+	            return new ResponseEntity<>("No Attendees for This Event",HttpStatus.NO_CONTENT); // 204 No Content
 	        }
 	        return new ResponseEntity<>(attendees, HttpStatus.OK); // 200 OK
 	    }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mphasis.eventify3.entity.Attendee;
 import com.mphasis.eventify3.entity.Event;
 import com.mphasis.eventify3.entity.Feedback;
 import com.mphasis.eventify3.entity.Ticket;
@@ -46,9 +47,9 @@ public class AttendeeService {
 		return attendeeRepo.findAllEventByEventLocation(location);
 	}
 
-	public TicketBooking bookTicket(TicketBooking ticketBooking) {
-		return ticketBookingRepo.save(ticketBooking);
-	}
+//	public TicketBooking bookTicket(TicketBooking ticketBooking) {
+//		return ticketBookingRepo.save(ticketBooking);
+//	}
 
 	public Feedback giveFeedback(Feedback feedback) throws AttendeeExceptionHandler {
 
@@ -78,6 +79,25 @@ public class AttendeeService {
 
 	}
 
+	public List<Event> getAllEvents(){
+		List<Event> eList = eventRepository.findAll();
+		return eList;
+	}
+	
+	
+	
+	public TicketBooking bookTicket(TicketBooking ticketBooking) {
+	    // Step 1: Fetch the Attendee entity by its ID (attendeeId)
+	    Attendee attendee = attendeeRepo.findById(ticketBooking.getAttendeeId())
+	                                          .orElseThrow(() -> new RuntimeException("Attendee not found"));
+ 
+	    // Step 2: Set the managed Attendee object to the ticketBooking
+	    ticketBooking.setAttendee(attendee);
+ 
+	    // Step 3: Save and return the TicketBooking entity
+	    return ticketBookingRepo.save(ticketBooking);
+	}
+	
 	// Browse events by type, location, or date
 //    public List<Event> browseEvents(String type, String location, LocalDateTime startDate, LocalDateTime endDate) {
 //        if (type != null) {

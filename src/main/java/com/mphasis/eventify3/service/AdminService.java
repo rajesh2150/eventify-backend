@@ -8,16 +8,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mphasis.eventify3.entity.Admin;
 import com.mphasis.eventify3.entity.Attendee;
 import com.mphasis.eventify3.entity.Event;
 import com.mphasis.eventify3.entity.Organizer;
 import com.mphasis.eventify3.exception.EventOrganizerExceptionHandler;
+import com.mphasis.eventify3.repository.AdminRepository;
 import com.mphasis.eventify3.repository.AttendeeRepository;
 import com.mphasis.eventify3.repository.EventRepository;
 import com.mphasis.eventify3.repository.OrganizerRepository;
 
 @Service
 public class AdminService {
+	
+	@Autowired
+	private AdminRepository adminRepository;
 
     @Autowired
     private AttendeeRepository attendeeRepository;
@@ -103,5 +108,11 @@ public class AdminService {
         analytics.put("totalEvents", totalEvents);
         analytics.put("totalUsers", totalUsers);
         return analytics;
+    }
+    
+    
+    public Optional<Admin> loginAdmin(String name, String password) {
+    	
+    	return adminRepository.findByAdminMailAndAdminPassword(name, password);
     }
 }

@@ -5,12 +5,15 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ch.qos.logback.core.status.Status;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,7 +37,12 @@ public class TicketBooking {
     
     private String status;
 //   @JsonIgnore
-    @ManyToOne
+//    @ManyToOne(optional = true)
+//    @JoinColumn(name = "attendee_id")
+//    private Attendee attendee;
+    
+    @JsonProperty("attendeeId")
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "attendee_id")
     private Attendee attendee;
 
@@ -112,6 +120,18 @@ public class TicketBooking {
 		super();
 	}
 
+	// Custom Setter for attendeeId
+    @JsonProperty("attendeeId")
+    public void setAttendeeId(int attendeeId) {
+        if (this.attendee == null) {
+            this.attendee = new Attendee();
+        }
+        this.attendee.setAttendeeId(attendeeId);  // Set the attendee from the attendeeId
+    }
+	@JsonProperty("attendeeId") // Exposes only the attendeeId field
+    public int getAttendeeId() {
+        return attendee != null ? attendee.getAttendeeId() : 0; // Safely return attendeeId
+    }
     // Getters and Setters
     
 }
